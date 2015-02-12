@@ -1,0 +1,9 @@
+
+<% if @retailer_check %>
+console.log("<%= @wholesellers %>");
+$(".wholeseller-view").append('<tr><td><%= @wholesellers.name %></td><td><%= @wholesellers.emailid %></td><td><%= link_to("Display", {:action=>"wholeseller",:id=>@wholesellers.id} , :class=>"btn btn-default") %></td></tr>');
+<% end %>
+<% if @customer_check %>
+console.log("<%= @retailers %>");
+$(".retailer-view").append('<tr><td><%= @retailers.name %></td><td><%= @retailers.emailid %></td><td><%= link_to("Display", {:action=>"retailer",:id=>@retailers.id} , :class=>"btn btn-default") %></td></tr>');
+<% end %>

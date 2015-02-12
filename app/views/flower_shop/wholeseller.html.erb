@@ -1,0 +1,62 @@
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h4>Wholeseller Name:</h4>
+				<h1 class="text-danger"><%= @wholesellers.name %></h1>
+				<h4>Wholeseller Email-id:</h4>
+				<h2 class="text-success"><%= @wholesellers.emailid %></h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<h1>retailers details</h1>	
+				<table class="table table-stripped">
+					<thead >
+						<tr>
+							<th>Name</th>
+							<th>Email Id</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @wholesellers.retailers.each do |whole| %>
+						<tr>
+							<td><%= whole.name %></td>
+							<td><%= whole.emailid %></td>
+							<td><%= link_to("Display", {:action=>"retailer",:id=>whole.id} , :class=>"btn btn-default") %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<h1>Indirect Customer details</h1>	
+				<table class="table table-stripped">
+					<thead >
+						<tr>
+							<th>Name</th>
+							<th>Email Id</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @wholesellers.retailers.each do |rett|%>
+						<% rett.customers.each do |whole| %>
+						<tr>
+							<td><%= whole.name %></td>
+							<td><%= whole.emailid %></td>
+							<td><%= link_to("Display", {:action=>"customer",:id=>whole.id} , :class=>"btn btn-default") %></td>
+						</tr>
+						<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>			
+		</div>
+		<div class="row">
+			<%= link_to "Back to Home",{:action=>"index"},:class=>"btn btn-warning col-lg-12 col-md-12 col-sm-12 col-xs-12" %>
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h4>Customer Name:</h4>
+				<h1 class="text-danger"><%= @customers.name %></h1>
+				<h4>Customers Email-id:</h4>
+				<h2 class="text-success"><%= @customers.emailid %></h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<%= form_for @customers,remote: true do |f| %>
+				<select name="retail[id]" class="form-control">
+				<% @users.each do |usr| %>
+				<% usr.roles.where("retailer=?",1).each do |ret| %>
+				<option value="<%= usr.id%>"><%= usr.name%></option>
+				<% end %>
+				<% end %>				
+				</select>
+				<br>
+				<div class="form-group">
+					<input type="submit" name="" value="SUBMIT" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12" id="submit-button">
+
+				</div>
+				<% end %>
+			</div>
+		</div>		
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<h1>Retailers details</h1>	
+				<table class="table table-stripped">
+					<thead >
+						<tr>
+							<th>Name</th>
+							<th>Email Id</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody class="retailer-view">
+						<% Retail.where("customer_id=?",params[:id]).each do |ret| %>
+						<% rets=User.find(ret.user_id) %>
+						<tr>
+							<td><%= rets.name %></td>
+							<td><%= rets.emailid %></td>
+							<td><%= link_to("Display", {:action=>"retailer",:id=>rets.id} , :class=>"btn btn-default") %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			</div>			
+		</div>
+		<div class="row">
+			<%= link_to "Back to Home",{:action=>"index"},:class=>"btn btn-warning col-lg-12 col-md-12 col-sm-12 col-xs-12" %>
+			
+		</div>
+	</div>
+</div>

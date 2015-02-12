@@ -1,0 +1,12 @@
+<% if @role_check %>
+console.log("<%= @roles%>");
+<% if @roles.wholeseller=="1" %>
+$(".wholesellers").append('<tr><td><%= @userss.name %></td><td><%= @userss.emailid %></td><td><%= link_to("Display", {:action=>"wholeseller",:id=>@userss.id} , :class=>"btn btn-default") %></td></tr>');
+<% end %>
+<% if @roles.retailer=="1" %>
+$(".retailers").append('<tr><td><%= @userss.name %></td><td><%= @userss.emailid %></td><td><%= link_to("Display", {:action=>"retailer",:id=>@userss.id} , :class=>"btn btn-default") %></td></tr>');
+<% end %>
+<% if @roles.customer=="1" %>
+$(".customers").append('<tr><td><%= @userss.name %></td><td><%= @userss.emailid %></td><td><%= link_to("Display", {:action=>"customer",:id=>@userss.id} , :class=>"btn btn-default") %></td></tr>');
+<% end %>
+<% end %>

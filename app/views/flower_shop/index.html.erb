@@ -1,0 +1,126 @@
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<h2 class="text-center">User Registration</h2>
+				<%= form_for @user_new,remote: true,:method=>"post" do |f| %>			
+				<div class="form-group">
+					<label for="name" class="control-label col-lg-2 col-md-2 col-sm-2 col-xs-4">Name</label>
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8">
+						<%= f.text_field :name,:class=>"form-control",:id=>"name",:required=>"required"%>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="emailid" class="control-label col-lg-2 col-md-2 col-sm-2 col-xs-4">Email-id</label>
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8">
+						<%= f.email_field :emailid,:class=>"form-control",:id=>"emailid",:required=>"required"%>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="usertypes" class="control-label col-lg-2 col-md-2 col-sm-2 col-xs-4">Select User Type</label>
+					<div class="form-group">
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-8" id="usertypes">
+							<label>
+								<input type="checkbox" class="form-control" name="user[wholeseller]" value="1">wholeseller
+							</label>
+							<label>
+								<input type="checkbox" class="form-control" name="user[customer]" value="1">customer
+							</label>
+							<label>
+								<input type="checkbox" class="form-control" name="user[retailer]" value="1">retailer
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" name="" value="SUBMIT" class="btn btn-primary col-lg-12 col-md-12 col-sm-12 col-xs-12" id="submit-button">
+
+				</div>
+				<% end %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+				<h3>Wholesellers</h3>
+				<table class="table table-stripped">
+					<thead >
+						<tr>
+							<th>Name</th>
+							<th>Email Id</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody class="wholesellers">
+						<% @users.each do |whole| %>
+						<% roler=Role.where("user_id=?",whole.id) %>
+						<% roler.each do |rl| %>
+						<% if rl.wholeseller == "1" %>
+						<tr>
+							<td><%= whole.name %></td>
+							<td><%= whole.emailid %></td>
+							<td><%= link_to("Display", {:action=>"wholeseller",:id=>whole.id} , :class=>"btn btn-default") %></td>
+						</tr>
+						<% else %>
+						<% end %>
+						<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+				<h3>Retailers</h3>
+				<table class="table table-stripped">
+					<thead >
+						<tr>
+							<th>Name</th>
+							<th>Email Id</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody class="retailers">
+						<% @users.each do |whole| %>
+						<% roler=Role.where("user_id=?",whole.id) %>
+						<% roler.each do |rl| %>
+						<% if rl.retailer == "1" %>
+						<tr>
+							<td><%= whole.name %></td>
+							<td><%= whole.emailid %></td>
+							<td><%= link_to("Display", {:action=>"retailer",:id=>whole.id} , :class=>"btn btn-default") %></td>
+						</tr>
+						<% else %>
+						<% end %>
+						<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+				<h3>Customers</h3>
+				<table class="table table-stripped">
+					<thead >
+						<tr>
+							<th>Name</th>
+							<th>Email Id</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody class="customers">
+						<% @users.each do |whole| %>
+						<% roler=Role.where("user_id=?",whole.id) %>
+						<% roler.each do |rl| %>
+						<% if rl.customer == "1" %>
+						<tr>
+							<td><%= whole.name %></td>
+							<td><%= whole.emailid %></td>
+							<td><%= link_to("Display", {:action=>"customer",:id=>whole.id} , :class=>"btn btn-default") %></td>
+						</tr>
+						<% else %>
+						<% end %>
+						<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>			
+		</div>	
+	</div>
+</div>
